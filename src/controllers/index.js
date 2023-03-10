@@ -1,5 +1,4 @@
 const catchError = require("../utils/catchError");
-const bcrypt = require("bcrypt");
 
 class Controller {
   constructor(Schema) {
@@ -39,15 +38,7 @@ class Controller {
 
   create() {
     return catchError(async (req, res) => {
-      let data;
-
-      if(!req.body.password) {
-        data = req.body;
-      }else{
-        const encrypted = await bcrypt.hash(req.body.password, 10);
-	data = {...req.body, password: encrypted};
-      }
-
+      const data = req.body;
       const created = await this.Schema.create(data);
 
       res.status(201).json({

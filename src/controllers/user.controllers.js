@@ -10,7 +10,7 @@ const sendEmail = require("../utils/sendEmail");
 class UserController extends Controller {
   constructor() {
     super(User);
-    this.frontBaseUrl = "http://localhost:8080/users";
+    this.frontBaseUrl = `${process.env.URL_BASE}/users` || "http://localhost:8080/users";
   }
 
   create() {
