@@ -10,7 +10,7 @@ const sendEmail = require("../utils/sendEmail");
 class UserController extends Controller {
   constructor() {
     super(User);
-    this.frontBaseUrl = `${process.env.URL_BASE}/users` || "http://localhost:8080/users";
+    this.frontBaseUrl = process.env.URL_BASE || "http://localhost:8080";
   }
 
   create() {
@@ -25,7 +25,7 @@ class UserController extends Controller {
       await sendEmail({
         to: createdUser.email,
 	subject: "Verify your account",
-	html: `<h3>Click on this link: <a href="${this.frontBaseUrl}/verify_email/${code}">${this.frontBaseUrl}/verify_email/${code}</a> for verify your account</h3>`
+	html: `<h3>Click on this link: <a href="${this.frontBaseUrl}/users/verify_email/${code}">${this.frontBaseUrl}/users/verify_email/${code}</a> for verify your account</h3>`
       });
       
       const createdVerifiycation = await EmailCode.create({code, userId: createdUser.id});
